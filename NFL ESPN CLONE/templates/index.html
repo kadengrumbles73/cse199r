@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NFL Hub</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+<header>
+    <h1>NFL Hub</h1>
+</header>
+
+<div class="search-container">
+    <form action="/" method="get">
+        <input type="text" name="search" placeholder="Search teams (e.g. Seahawks)..." value="{{ search_query }}">
+        <button type="submit">Search</button>
+        {% if search_query %}
+            <a href="/">Clear</a>
+        {% endif %}
+    </form>
+</div>
+
+<div class="team-grid">
+    {% for team in teams %}
+    <div class="team-card" style="border-top: 6px solid {{ team.team_color }}">
+        <img src="{{ team.team_logo_espn }}" class="logo" alt="{{ team.team_name }}">
+        <h3>{{ team.team_name }}</h3>
+        <p>{{ team.team_conf }} | {{ team.team_division }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% if not teams %}
+    <p style="text-align:center;">No teams found matching "{{ search_query }}"</p>
+{% endif %}
+
+</body>
+</html>
