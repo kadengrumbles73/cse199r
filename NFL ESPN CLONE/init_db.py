@@ -10,11 +10,11 @@ def init_db():
     # fetches data from the NFL API
     teams = nfl.import_team_desc()
     
-    # This saves the data into your database
+    # saves data in db
     teams.to_sql('teams', conn, if_exists='replace', index=False)
     
     conn.close()
-    print("Success! Database Ready.")
+    print("Success! Database Ready.") 
 
 if __name__ == "__main__":
-    init_db()
+    init_db() 

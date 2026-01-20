@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ team.team_name }} Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header style="background-color: {{ team.team_color }}">
+        <img src="{{ team.team_logo_espn }}" width="100">
+        <h1>{{ team.team_name }}</h1>
+    </header>
+    
+    <h2>Recent Games</h2>
+    </body>
+</html>
