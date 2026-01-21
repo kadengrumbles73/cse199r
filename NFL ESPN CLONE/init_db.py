@@ -47,6 +47,5 @@ def init_players_table():
 
 # To run it, just call the function at the bottom of the file
 if __name__ == "__main__":
-    init_players_table()
-if __name__ == "__main__":
     init_db() 
+    init_players_table()
