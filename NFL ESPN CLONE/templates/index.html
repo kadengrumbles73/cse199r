@@ -2,37 +2,43 @@
 <html>
 <head>
     <title>NFL Hub</title>
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
 <header>
-    <h1>NFL Hub</h1>
+    <h1>NFL <span style="color: var(--secondary-color);">HUB</span></h1>
+    <p>Season 2025/26 Statistics</p>
 </header>
 
 <div class="search-container">
-    <form action="/" method="get">
-        <input type="text" name="search" placeholder="Search teams (e.g. Seahawks)..." value="{{ search_query }}">
-        <button type="submit">Search</button>
-        {% if search_query %}
-            <a href="/">Clear</a>
-        {% endif %}
-    </form>
+    <input type="text" id="liveSearch" placeholder="Quick find team...">
 </div>
 
-<div class="team-grid">
+<div class="team-grid" id="teamGrid">
     {% for team in teams %}
-    <div class="team-card" style="border-top: 6px solid {{ team.team_color }}">
-        <img src="{{ team.team_logo_espn }}" class="logo" alt="{{ team.team_name }}">
-        <h3>{{ team.team_name }}</h3>
-        <p>{{ team.team_conf }} | {{ team.team_division }}</p>
-    </div>
+    <a href="/team/{{ team.team_abbr }}" class="team-link" style="text-decoration: none; color: inherit;">
+        <div class="team-card" style="border-bottom: 4px solid {{ team.team_color }}">
+            <img src="{{ team.team_logo_espn }}" class="logo" alt="{{ team.team_name }}">
+            <h3>{{ team.team_name }}</h3>
+            <p>{{ team.team_conf }} | {{ team.team_division }}</p>
+        </div>
+    </a>
     {% endfor %}
 </div>
 
-{% if not teams %}
-    <p style="text-align:center;">No teams found matching "{{ search_query }}"</p>
-{% endif %}
+<script>
+    const searchInput = document.getElementById('liveSearch');
+    const teamLinks = document.querySelectorAll('.team-link');
+
+    searchInput.addEventListener('input', (e) => {
+        const value = e.target.value.toLowerCase();
+        teamLinks.forEach(link => {
+            const teamName = link.textContent.toLowerCase();
+            link.style.display = teamName.includes(value) ? "block" : "none";
+        });
+    });
+</script>
 
 </body>
 </html>
