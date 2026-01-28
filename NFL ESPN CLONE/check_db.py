@@ -12,7 +12,7 @@ cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='play
 if not cursor.fetchone():
     print("❌ ERROR: The 'players' table does not exist in the database!")
 else:
-    # Check if data exists
+    # Check if data exists 
     count = cursor.execute("SELECT COUNT(*) FROM players").fetchone()[0]
     print(f"✅ SUCCESS: Found {count} players in the database.")
     

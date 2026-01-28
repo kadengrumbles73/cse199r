@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #013369; /* NFL Blue */
-    --secondary-color: #d50a0a; /* NFL Red */
+    --primary-color: #013369;
+    --secondary-color: #d50a0a;
     --bg-color: #121212;
     --card-bg: #1e1e1e;
     --text-main: #ffffff;
@@ -8,11 +8,10 @@
 }
 
 body { 
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+    font-family: 'Inter', -apple-system, sans-serif; 
     background-color: var(--bg-color); 
     color: var(--text-main);
     margin: 0; 
-    line-height: 1.6;
 }
 
 header { 
@@ -20,7 +19,6 @@ header {
     color: white; 
     padding: 40px 20px; 
     text-align: center; 
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
 }
 
 .search-container { 
@@ -37,21 +35,13 @@ input[type="text"] {
     border-radius: 30px; 
     background: #2a2a2a;
     color: white;
-    font-size: 1rem;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-}
-
-input[type="text"]:focus {
-    width: 450px;
-    outline: 2px solid var(--secondary-color);
-    background: #333;
 }
 
 .team-grid {  
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-    gap: 25px; 
+    gap: 30px; 
     padding: 20px; 
     max-width: 1400px; 
     margin: auto;
@@ -60,29 +50,28 @@ input[type="text"]:focus {
 .team-card { 
     background: var(--card-bg); 
     border-radius: 15px; 
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    border: 1px solid #333;
-    text-align: center; 
-    padding: 30px;
-    height: 100%;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s ease;
 }
 
-.team-card:hover { 
-    transform: translateY(-10px); 
-    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-    border-color: var(--secondary-color);
+.team-card:hover {
+    transform: translateY(-5px);
 }
 
-.logo { width: 120px; height: auto; margin-bottom: 15px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2)); }
+.logo { 
+    width: 100px; 
+    height: auto; 
+}
 
-.team-card h3 { margin: 10px 0 5px; font-size: 1.4rem; letter-spacing: 0.5px; }
-.team-card p { color: var(--text-dim); font-size: 0.9rem; text-transform: uppercase; }
-
-/* Roster Specifics */
 .player-headshot {
-    width: 100%;
-    border-radius: 10px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
     background: #252525;
-    margin-bottom: 15px;
+    object-fit: cover;
+    border: 3px solid #333;
 }

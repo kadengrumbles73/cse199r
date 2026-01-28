@@ -7,10 +7,9 @@
 <body>
 
 <header style="background: linear-gradient(135deg, {{ team.team_color }}, #000)">
-    <a href="/" style="color: white; text-decoration: none; font-size: 0.9rem; float: left;">← Back to Teams</a>
-    <img src="{{ team.team_logo_espn }}" width="120" style="display: block; margin: 0 auto;">
+    <a href="/" style="color: white; text-decoration: none; float: left; padding: 10px;">← Back</a>
+    <img src="{{ team.team_logo_espn }}" width="100" style="display: block; margin: 0 auto;">
     <h1>{{ team.team_name }}</h1>
-    <p>{{ team.team_conf }} {{ team.team_division }}</p>
 </header> 
 
 <div class="team-grid">
@@ -18,9 +17,9 @@
     <div class="team-card">
         <img class="player-headshot" src="{{ player.headshot_url }}" 
             onerror="this.src='https://a.espncdn.com/combiner/i?img=/i/headshots/nophoto.png'">
-        <h3 style="font-size: 1.1rem;">{{ player.full_name }}</h3>
+        <h3>{{ player.full_name }}</h3>
         <p style="color: {{ team.team_color }}; font-weight: bold;">
-            #{{ player.jersey_number }} | {{ player.position }}
+            #{{ player.jersey_number }} • {{ player.position }}
         </p>
     </div>
     {% endfor %}

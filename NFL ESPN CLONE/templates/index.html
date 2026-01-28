@@ -7,21 +7,21 @@
 <body>
 
 <header>
-    <h1>NFL <span style="color: var(--secondary-color);">HUB</span></h1>
-    <p>Season 2025/26 Statistics</p>
+    <h1>NFL HUB</h1>
+    <p>Season 2025/26</p>
 </header>
 
 <div class="search-container">
-    <input type="text" id="liveSearch" placeholder="Quick find team...">
+    <input type="text" id="liveSearch" placeholder="Find a team...">
 </div>
 
 <div class="team-grid" id="teamGrid">
     {% for team in teams %}
     <a href="/team/{{ team.team_abbr }}" class="team-link" style="text-decoration: none; color: inherit;">
-        <div class="team-card" style="border-bottom: 4px solid {{ team.team_color }}">
-            <img src="{{ team.team_logo_espn }}" class="logo" alt="{{ team.team_name }}">
+        <div class="team-card" style="border-top: 5px solid {{ team.team_color }}">
+            <img src="{{ team.team_logo_espn }}" class="logo">
             <h3>{{ team.team_name }}</h3>
-            <p>{{ team.team_conf }} | {{ team.team_division }}</p>
+            <p style="color: var(--text-dim)">{{ team.team_conf }} | {{ team.team_division }}</p>
         </div>
     </a>
     {% endfor %}
@@ -34,8 +34,8 @@
     searchInput.addEventListener('input', (e) => {
         const value = e.target.value.toLowerCase();
         teamLinks.forEach(link => {
-            const teamName = link.textContent.toLowerCase();
-            link.style.display = teamName.includes(value) ? "block" : "none";
+            const name = link.innerText.toLowerCase();
+            link.style.display = name.includes(value) ? 'block' : 'none';
         });
     });
 </script>
