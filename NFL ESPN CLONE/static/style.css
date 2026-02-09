@@ -1,77 +1,271 @@
+/* --- Global Variables & Themes --- */
 :root {
     --primary-color: #013369;
     --secondary-color: #d50a0a;
-    --bg-color: #121212;
-    --card-bg: #1e1e1e;
+    --bg-color: #0f0f0f;
+    --card-bg: #1a1a1a;
     --text-main: #ffffff;
-    --text-dim: #b3b3b3;
+    --text-dim: #a0a0a0;
+    --nav-bg: #151515;
+    --input-bg: #222;
+    --border-color: #333;
+    --transition: 0.3s ease;
 }
 
+[data-theme="light"] {
+    --bg-color: #f4f4f4;
+    --card-bg: #ffffff;
+    --text-main: #1a1a1a;
+    --text-dim: #666666;
+    --nav-bg: #ffffff;
+    --input-bg: #e0e0e0;
+    --border-color: #ddd;
+}
+
+/* --- Base Styles --- */
 body { 
-    font-family: 'Inter', -apple-system, sans-serif; 
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
     background-color: var(--bg-color); 
     color: var(--text-main);
     margin: 0; 
+    transition: background-color var(--transition), color var(--transition);
+    line-height: 1.6;
 }
 
 header { 
     background: linear-gradient(135deg, var(--primary-color), #001d3d);
     color: white; 
-    padding: 40px 20px; 
-    text-align: center; 
-}
-
-.search-container { 
-    margin: -25px auto 30px; 
-    text-align: center; 
-    position: relative;
-    z-index: 10;
-}
-
-input[type="text"] { 
-    padding: 15px 25px; 
-    width: 400px; 
-    border: none; 
-    border-radius: 30px; 
-    background: #2a2a2a;
-    color: white;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-.team-grid {  
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-    gap: 30px; 
-    padding: 20px; 
-    max-width: 1400px; 
-    margin: auto;
-}
-
-.team-card { 
-    background: var(--card-bg); 
-    border-radius: 15px; 
     padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
+    text-align: center;
+}
+
+header h1 { margin: 0; font-size: 2.5rem; letter-spacing: 2px; text-transform: uppercase; }
+
+/* --- Navigation --- */
+nav { 
+    background: var(--nav-bg); 
+    padding: 15px; 
+    display: flex; 
+    justify-content: center; 
     align-items: center;
-    gap: 15px;
-    transition: transform 0.3s ease;
+    gap: 20px; 
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.team-card:hover {
-    transform: translateY(-5px);
+nav a, .theme-toggle { 
+    color: var(--text-main); 
+    text-decoration: none; 
+    font-weight: 600; 
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: var(--transition);
 }
 
-.logo { 
-    width: 100px; 
-    height: auto; 
+nav a:hover, nav a.active { 
+    background: var(--primary-color); 
+    color: white; 
+}
+
+/* --- Search Bar (Sticky) --- */
+.search-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 10px;
+    position: sticky;
+    top: 70px; /* Sits right under the nav */
+    background: var(--bg-color);
+    z-index: 999;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#liveSearch {
+    padding: 12px 25px;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 30px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-main);
+    outline: none;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+#liveSearch:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(1, 51, 105, 0.3);
+}
+
+/* --- Week Navigation (Rounded Squares) --- */
+.week-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px auto;
+}
+
+.week-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    text-decoration: none;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.week-btn:hover { background: var(--primary-color); color: white; }
+
+.week-btn.active-week {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* --- Responsive Grids (Teams & Players) --- */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.team-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.team-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.team-logo-main {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
 }
 
 .player-headshot {
-    width: 140px;
-    height: 140px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
-    background: #252525;
+    background: #222;
+    margin-bottom: 15px;
+    border: 3px solid var(--border-color);
     object-fit: cover;
-    border: 3px solid #333;
 }
+
+.team-meta {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- Scoreboard Mobile First (Stacked) --- */
+.scores-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.game-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    gap: 15px;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.team-logo { width: 45px; height: auto; }
+.team-name { font-weight: 800; font-size: 1.1rem; }
+.team-record { font-size: 0.85rem; color: var(--text-dim); }
+
+.score-section {
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.score-display {
+    font-size: 2rem;
+    font-weight: 900;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.game-status {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+/* --- Desktop Layout (Horizontal) --- */
+@media (min-width: 768px) {
+    
+    .game-card {
+        display: grid;
+        grid-template-columns: 1fr 160px 1fr; 
+        align-items: center;
+    }
+
+    .away { justify-content: flex-end; text-align: right; }
+    .home { justify-content: flex-start; text-align: left; }
+
+    /* Flip Away Team: Text on left, Logo on right to face the center score */
+    .away .team-info { order: 1; }
+    .away .team-logo { order: 2; }
+
+    .score-section {
+        border-top: none;
+        border-bottom: none;
+        border-left: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
+    }
+}
+
+/* --- Utilities --- */
+.loader {
+    border: 5px solid var(--border-color);
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 40px auto;
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.hidden { display: none; }

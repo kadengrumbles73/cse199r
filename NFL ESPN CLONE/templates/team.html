@@ -1,29 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ team.team_name }} | NFL Hub</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <header style="background: linear-gradient(135deg, {{ team.team_color }}, #000)">
+        <img src="{{ team.team_logo_espn }}" width="100" alt="{{ team.team_name }}">
+        <h1>{{ team.team_name }}</h1>
+    </header> 
 
-<header style="background: linear-gradient(135deg, {{ team.team_color }}, #000)">
-    <a href="/" style="color: white; text-decoration: none; float: left; padding: 10px;">← Back</a>
-    <img src="{{ team.team_logo_espn }}" width="100" style="display: block; margin: 0 auto;">
-    <h1>{{ team.team_name }}</h1>
-</header> 
+    <nav>
+        <a href="{{ url_for('index') }}">← Back to Teams</a>
+        <a href="{{ url_for('scores') }}">Scores</a>
+        <button class="theme-toggle" id="themeBtn">🌓 Mode</button>
+    </nav>
 
-<div class="team-grid">
-    {% for player in players %}
-    <div class="team-card">
-        <img class="player-headshot" src="{{ player.headshot_url }}" 
-            onerror="this.src='https://a.espncdn.com/combiner/i?img=/i/headshots/nophoto.png'">
-        <h3>{{ player.full_name }}</h3>
-        <p style="color: {{ team.team_color }}; font-weight: bold;">
-            #{{ player.jersey_number }} • {{ player.position }}
-        </p>
+    <div class="team-grid">
+        {% for player in players %}
+        <div class="team-card">
+            <img class="player-headshot" src="{{ player.headshot_url }}" 
+                 onerror="this.src='https://a.espncdn.com/combiner/i?img=/i/headshots/nophoto.png'">
+            <h3 class="team-name">{{ player.full_name }}</h3>
+            <p style="color: {{ team.team_color }}; font-weight: 800; text-transform: uppercase; font-size: 0.8rem;">
+                #{{ player.jersey_number }} | {{ player.position }}
+            </p>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

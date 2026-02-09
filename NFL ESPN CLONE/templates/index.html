@@ -1,44 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>NFL Hub</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Hub | Teams</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <header>
+        <h1>NFL HUB</h1>
+        <p>2025/26 Season</p>
+    </header>
 
-<header>
-    <h1>NFL HUB</h1>
-    <p>Season 2025/26</p>
-</header>
+    <nav>
+        <a href="{{ url_for('index') }}" class="active">Teams</a>
+        <a href="{{ url_for('scores') }}">Scores</a>
+        <button class="theme-toggle" id="themeBtn">🌓 Mode</button>
+    </nav>
 
-<div class="search-container">
-    <input type="text" id="liveSearch" placeholder="Find a team...">
-</div>
+    <div class="search-container">
+        <input type="text" id="liveSearch" placeholder="Search teams (e.g. Chiefs)...">
+    </div>
 
-<div class="team-grid" id="teamGrid">
-    {% for team in teams %}
-    <a href="/team/{{ team.team_abbr }}" class="team-link" style="text-decoration: none; color: inherit;">
-        <div class="team-card" style="border-top: 5px solid {{ team.team_color }}">
-            <img src="{{ team.team_logo_espn }}" class="logo">
-            <h3>{{ team.team_name }}</h3>
-            <p style="color: var(--text-dim)">{{ team.team_conf }} | {{ team.team_division }}</p>
-        </div>
-    </a>
-    {% endfor %}
-</div>
+    <div class="team-grid">
+        {% for team in teams %}
+        <a href="/team/{{ team.team_abbr }}" class="team-link" style="text-decoration: none; color: inherit;">
+            <div class="team-card" style="border-top: 5px solid {{ team.team_color }}">
+                <img src="{{ team.team_logo_espn }}" class="team-logo-main" alt="{{ team.team_name }}">
+                <h3 class="team-name">{{ team.team_name }}</h3>
+                <p class="team-meta">{{ team.team_conf }} {{ team.team_division }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
 
-<script>
-    const searchInput = document.getElementById('liveSearch');
-    const teamLinks = document.querySelectorAll('.team-link');
-
-    searchInput.addEventListener('input', (e) => {
-        const value = e.target.value.toLowerCase();
-        teamLinks.forEach(link => {
-            const name = link.innerText.toLowerCase();
-            link.style.display = name.includes(value) ? 'block' : 'none';
-        });
-    });
-</script>
-
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
