@@ -23,15 +23,14 @@
     </div>
 
     <div class="team-grid">
-        {% for team in teams %}
-        <a href="/team/{{ team.team_abbr }}" class="team-link" style="text-decoration: none; color: inherit;">
-            <div class="team-card" style="border-top: 5px solid {{ team.team_color }}">
-                <img src="{{ team.team_logo_espn }}" class="team-logo-main" alt="{{ team.team_name }}">
-                <h3 class="team-name">{{ team.team_name }}</h3>
-                <p class="team-meta">{{ team.team_conf }} {{ team.team_division }}</p>
+    {% for team in teams %}
+    <a href="/team/{{ team.team_abbr }}" class="team-link" style="text-decoration: none; color: inherit;">
+        <div class="team-card" style="border-top: 4px solid {{ team.team_color }}">
+            <img src="{{ team.team_logo_espn }}" class="logo">
+            <h3>{{ team.team_name }}</h3>
             </div>
-        </a>
-        {% endfor %}
+    </a>
+    {% endfor %}
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>

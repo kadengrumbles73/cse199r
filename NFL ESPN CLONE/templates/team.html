@@ -22,7 +22,7 @@
         {% for player in players %}
         <div class="team-card">
             <img class="player-headshot" src="{{ player.headshot_url }}" 
-                 onerror="this.src='https://a.espncdn.com/combiner/i?img=/i/headshots/nophoto.png'">
+                onerror="this.src='https://a.espncdn.com/combiner/i?img=/i/headshots/nophoto.png'">
             <h3 class="team-name">{{ player.full_name }}</h3>
             <p style="color: {{ team.team_color }}; font-weight: 800; text-transform: uppercase; font-size: 0.8rem;">
                 #{{ player.jersey_number }} | {{ player.position }}

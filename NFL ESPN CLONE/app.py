@@ -15,8 +15,8 @@ def get_db_connection():
 @app.route('/')
 def index():
     conn = get_db_connection()
-    teams = conn.execute('SELECT * FROM teams').fetchall()
-    conn.close()
+    teams = conn.execute('SELECT * FROM teams ORDER BY team_conf, team_division').fetchall()
+    conn.close() 
     return render_template('index.html', teams=teams)
 
 @app.route('/team/<abbr>')
@@ -28,29 +28,32 @@ def team_page(abbr):
     return render_template('team.html', team=team, players=players)
 
 @app.route('/scores')
-@app.route('/scores/<int:week_num>')
-def scores(week_num=None):
-    # API URL targeting 2025 Regular Season
+@app.route('/scores/<int:year>/<int:season_type>/<int:week_num>')
+def scores(year=2025, season_type=2, week_num=1):
+    # ESPN API Endpoint
     url = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard"
     
-    # seasontype 2 = Regular Season
+    # params: seasontype 2 = Regular, 3 = Postseason
     params = {
-        'dates': '2025',
-        'seasontype': '2'
+        'dates': str(year),
+        'seasontype': str(season_type),
+        'week': str(week_num)
     }
-    
-    if week_num:
-        params['week'] = week_num
     
     try:
         response = requests.get(url, params=params)
         data = response.json()
         games = data.get('events', [])
         
-        # Pull week number from API if not specified
-        display_week = week_num if week_num else data.get('week', {}).get('number', 1)
-        
-        return render_template('scores.html', games=games, week=display_week)
+        # Determine current week for the header title if needed
+        # We pass the parameters back to the template to keep the dropdowns synced
+        return render_template(
+            'scores.html', 
+            games=games, 
+            current_year=year, 
+            current_season=season_type, 
+            current_week=week_num
+        )
     except Exception as e:
         print(f"Error: {e}")
         return "Scoreboard unavailable.", 500
