@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Summary | NFL Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .stat-table { max-width: 800px; margin: 20px auto; background: var(--card); border-radius: var(--radius); padding: 20px; }
+        .stat-row { display: grid; grid-template-columns: 1fr 2fr 1fr; text-align: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+        .stat-label { color: var(--text-dim); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+        .stat-val { font-weight: 900; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{ header.competitions[0].competitors[1].team.abbreviation }} vs {{ header.competitions[0].competitors[0].team.abbreviation }}</h1>
+        <p>{{ header.competitions[0].status.type.detail }}</p>
+    </header>
+
+    <div class="stat-table">
+        <h3>Team Statistics</h3>
+        {% if boxscore.teams %}
+            {% for stat in boxscore.teams[0].statistics %}
+            <div class="stat-row">
+                <span class="stat-val">{{ boxscore.teams[1].statistics[loop.index0].displayValue }}</span>
+                <span class="stat-label">{{ stat.label }}</span>
+                <span class="stat-val">{{ stat.displayValue }}</span>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
